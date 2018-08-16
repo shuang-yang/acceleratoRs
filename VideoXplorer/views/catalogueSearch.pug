@@ -1,0 +1,44 @@
+extends layout
+
+block content
+  nav(class='navbar navbar-expand-lg navbar-light bg-light', id='navBar')
+    a(class='navbar-brand', href='#') VideoXplorer
+    button(class='navbar-toggler', type='button', data-toggle='collapse', data-target='#navbarSupportedContent', aria-controls='navbarSupportedContent', aria-expanded='false', aria-label='Toggle navigation')
+      span(class='navbar-toggler-icon')
+    div(clas='collapse navbar-collapse', id='navbarSupportedContent')
+      ul(class='navbar-nav mr-auto')
+        li(class='nav-item', id='navBarUploadButton')
+          a(class='nav-link', href='') Catalogue
+        li(class='nav-item', id='navBarUploadButton')
+          a(class='nav-link', href='./upload') Upload
+        li(class='nav-item', id='navBarUploadButton')
+          a(class='nav-link uk-position-right uk-position-small', href='../') Sign Out
+  div(class='container-fluid', id='searchBarContainer')
+    div(class='row justify-content-center', id='searchBar')
+      form(class='form-inline justify-content-center', id='searchBarForm', method='get', action='')
+        input(class='form-control mr-sm-2', id='searchField', type='search', name='term', placeHolder='Search', aria-label='Search')
+        button(class='btn btn-primary my-2 my-sm-0', id='searchButton', type='submit', href='/search') Search
+  div(class='uk-container uk-overflow-auto', style='max-height: 75%')
+    each frames, videoName in videos
+      - var framesData = JSON.stringify(frames)
+      a(class='uk-link-reset uk-card uk-card-default uk-margin-medium uk-box-shadow-small uk-box-shadow-hover-large uk-align-center', style='width: 100%;', id='resultCard'+videoName, href='/video/'+videoName+'?frames='+framesData)
+        script.
+          $('#resultCard'+videoName).data('frames', frames);
+        div(class='uk-container uk-card-secondary', id='videoSearchTitleContainer', style='height: 20%')
+          p(class='uk-position-small uk-text-medium uk-link-reset', id='resultTitle'+videoName)= videoName
+          //- div(class='uk-divider-small uk-margin-left-medium', style='height: 5%')
+        div(class='uk-overflow-auto uk-height-expand', id='framePreview'+videoName, style='max-width:100%')
+          table(class='uk-table uk-height-expand uk-margin-top-small')
+            thread
+              tr
+                each frame in frames
+                  th(style='min-width: 12rem;', class='uk-height-expand')
+                    img(src=frame.url, class='uk-margin-medium')
+  script.
+    $(function() {
+      $('[id^="resultCard"]').click(function() {
+        var frames = $(this).data('frames');
+        var framesData = JSON.stringify(frames);
+        $.get('../routes/video.js');
+      })
+    })

@@ -1,0 +1,49 @@
+extends homeLayout
+
+block content
+  div(class='uk-container uk-position-center')
+    div(class='uk-card uk-card-secondary uk-card-body uk-height-auto uk-card-hover')
+      form(class="uk-form-horizontal uk-margin-small", action="/local-reg", method="post")
+        div(class="uk-margin")
+          label(class="uk-form-label", for="form-horizontal-text") Username
+        div(class="uk-form-controls")
+          input(class="uk-input uk-form-small", id="form-horizontal-text", type="text", placeholder="Username", name="username")
+        div(class="uk-margin")
+          label(class="uk-form-label", for="form-horizontal-text") Password
+        div(class="uk-form-controls")
+          input(class="uk-input uk-form-small", id="form-horizontal-text", type="text", placeholder="Password", name="password")
+        hr(class="uk-divider-icon")
+        div(class="uk-margin")
+          label(class="uk-form-label", for="form-horizontal-text") Blob Storage Name
+        div(class="uk-form-controls")
+          input(class="uk-input uk-form-small", id="form-horizontal-text", type="text", placeholder="Account Name", name="blobStorageName")
+        div(class="uk-margin")
+          label(class="uk-form-label", for="form-horizontal-text") Blob Storage Key
+        div(class="uk-form-controls")
+          input(class="uk-input uk-form-small", id="form-horizontal-text", type="text", placeholder="Account Key", name="blobStorageKey")
+        div(class="uk-margin")
+          label(class="uk-form-label", for="form-horizontal-text") Cosmos DB Endpoint
+        div(class="uk-form-controls")
+          input(class="uk-input uk-form-small", id="form-horizontal-text", type="text", placeholder="DB Endpoint", name="dbEndpoint")
+        div(class="uk-margin")
+          label(class="uk-form-label", for="form-horizontal-text") Cosmos DB Key
+        div(class="uk-form-controls")
+          input(class="uk-input uk-form-small", id="form-horizontal-text", type="text", placeholder="DB Key", name="dbKey")
+        div(class="uk-margin")
+          label(class="uk-form-label", for="form-horizontal-text") Azure Search Name
+        div(class="uk-form-controls")
+          input(class="uk-input uk-form-small", id="form-horizontal-text", type="text", placeholder="Search Name", name="searchName")
+        div(class="uk-margin")
+          label(class="uk-form-label", for="form-horizontal-text") Azure Search Key
+        div(class="uk-form-controls")
+          input(class="uk-input uk-form-small", id="form-horizontal-text", type="text", placeholder="Search Key", name="searchKey")
+        div(class="uk-margin")
+          label(class="uk-form-label", for="form-horizontal-text") Computer Vision Key
+        div(class="uk-form-controls")
+          input(class="uk-input uk-form-small", id="form-horizontal-text", type="text", placeholder="Key", name="cvKey")
+        div(class="uk-margin")
+          label(class="uk-form-label", for="form-horizontal-text") Computer Vision URL
+        div(class="uk-form-controls")
+          input(class="uk-input uk-form-small", id="form-horizontal-text", type="text", placeholder="URL", name="cvURL")
+        button(class='uk-button uk-button-primary uk-button-large uk-align-center', type='submit') Sign up
+      a(href="../signin", class='uk-link-muted uk-position-bottom-center uk-position-medium') Go to Sign in

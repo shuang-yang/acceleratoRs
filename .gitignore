@@ -33,4 +33,5 @@ vignettes/*.pdf
 *.knit.md
 .Rproj.user
 
-*~
+# Node modules
+VideoXplorer/node_modules/

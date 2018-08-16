@@ -1,0 +1,50 @@
+extends layout
+
+block content
+    nav(class='navbar navbar-expand-lg navbar-light bg-light', id='navBar')
+        a(class='navbar-brand', href='') VideoXplorer
+        button(class='navbar-toggler', type='button', data-toggle='collapse', data-target='#navbarSupportedContent', aria-controls='navbarSupportedContent', aria-expanded='false', aria-label='Toggle navigation')
+            span(class='navbar-toggler-icon')
+        div(clas='collapse navbar-collapse', id='navbarSupportedContent')
+            ul(class='navbar-nav mr-auto')
+                li(class='nav-item', id='navBarUploadButton')
+                    a(class='nav-link', href='../catalogue') Catalogue
+                li(class='nav-item', id='navBarUploadButton')
+                    a(class='nav-link', href='../upload') Upload
+                li(class='nav-item', id='navBarUploadButton')
+                    a(class='nav-link uk-position-top-right uk-position-small', href='../') Sign Out
+    div(class='uk-container uk-position-center', id='formContainer')
+        div(class='uk-card uk-card-secondary uk-card-body uk-height-auto uk-card-hover')
+            form(class="uk-form-horizontal uk-margin-small", action="", method="post", encType='multipart/form-data', id='uploadForm')
+                div(class="uk-margin")
+                    label(class="uk-form-label", for="form-horizontal-text") Start Time (second)
+                div(class="uk-form-controls")
+                    input(class="uk-input uk-form-small", id="form-horizontal-text", type="text", placeholder="Start", name="startTime")
+                div(class="uk-margin")
+                    label(class="uk-form-label", for="form-horizontal-text") End Time (second)
+                div(class="uk-form-controls")
+                    input(class="uk-input uk-form-small", id="form-horizontal-text", type="text", placeholder="End", name="endTime")
+                div(class="uk-margin")
+                    label(class="uk-form-label", for="form-horizontal-text") Sample Rate (second)
+                div(class="uk-form-controls")
+                    input(class="uk-input uk-form-small", id="form-horizontal-text", type="text", placeholder="Rate", name="sampleRate")
+                div(class="uk-margin")
+                    label(class="uk-form-label", for="form-horizontal-text") Video
+                div(class="js-upload" uk-form-custom)
+                    input(type='file', class='custom-file-input', name='videoFile', multiple)
+                    button(class='uk-button uk-button-default', type='button', tabindex='-1') Upload
+                button(type='submit', class='uk-button uk-button-primary uk-button-large uk-align-center', id='submitButton') Submit
+            div(uk-spinner, id='spinner', class='uk-position-bottom-center uk-position-medium')
+    script.
+        $(function() {
+            //- var async = require('async');
+            //- $('#submitButton').click(function() {
+            //-     //- $('#spinner').show();
+            //-     $('#uploadForm').submit();
+            //- });
+            $('#uploadForm').submit(function() {
+                event.preventDefault();
+                $('#spinner').show();
+                $(this).unbind('submit').submit();
+            })
+        });

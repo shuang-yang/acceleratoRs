@@ -1,0 +1,16 @@
+extends homeLayout
+
+block content
+  div(class='uk-container uk-position-center')
+    div(class='uk-card uk-card-secondary uk-card-body uk-height-medium uk-card-hover')
+      form(action="/login", method="post")
+        div(class='uk-margin uk-form-large')
+          div(class='uk-inline')
+            span(class='uk-form-icon', uk-icon='icon: user')
+            input(class='uk-input', type='text', name='username', id='username')
+        div(class='uk-margin uk-form-large')
+          div(class='uk-inline')
+            span(class='uk-form-icon', uk-icon='icon: lock')
+            input(class='uk-input', type='text', name='password', id='password')
+        button(class='uk-button uk-button-primary uk-button-large uk-align-center', type='submit') Sign in
+      a(href="../signup", class='uk-link-muted uk-position-bottom-center uk-position-medium') Go to Sign up

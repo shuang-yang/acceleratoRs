@@ -1,0 +1,184 @@
+/* * {
+  border: 1px solid black;
+} */
+
+/* Element Selectors */
+body {
+  padding: 0px;
+  /* font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;  */
+  font: 14px Futura;
+}
+
+a {
+  color: #00B7FF; 
+}
+
+@font-face {
+  font-family: Futura;
+  src: url(./public/fonts/futura-medium.ttf);
+}
+
+/* Class Selectors */
+.page-container {
+  width: 100vw;
+  height: 100vh;
+  margin: 0;
+  position: relative;
+  /* background-color: #ffffff; */
+  background-image: url('../images/splash.jpg');
+  background-size: cover;                      
+  background-repeat: no-repeat;
+  background-position: center center; 
+}
+
+.main-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.right-aligned-title {
+  text-align: right;
+  font-weight: bold;
+  min-width: 5em;
+}
+
+.card-img-top {
+  height: 30%;
+  object-fit: cover;
+}
+
+#carouselInner .card {
+  height: 40em;
+  width: 70%;
+}
+
+/* Home page */
+
+#homeContainer {
+  height: 100%;
+  width: 100%;
+}
+
+#homeTitle {
+  font-family: futura;
+}
+
+/* Catalogue Page */
+
+#catalogueContainer {
+  max-height: 75%;
+  overflow: scroll;
+}
+
+[id^='cardTitle'] {
+  padding: 0;
+  margin: 0;
+  font-size: 16px;
+  font-family: avenir;
+}
+
+[id^='cardTag'] {
+  padding: 0;
+  margin: 0;
+  font-size: 10px;
+  align-self: left;
+  font-family: avenir;
+}
+
+/* #catalogueContainer .uk-card-media-top {
+  max-height: 10em;
+} */
+
+#catalogue {
+  /* overflow: scroll; */
+  max-height: 100%;
+}
+
+#videoCard:hover {
+  border-radius: 0%;
+}
+
+/* Upload Page */
+
+#uploadFormContainer {
+  /* background-color: #00B7FF; */
+  /* background-image: url('http://www.hdwallpaperslife.com/wp-content/uploads/2018/01/color_splash_huawei_7s_stock-wide.jpg'); */
+  background-size: cover;                      
+  background-repeat: no-repeat;
+  background-position: center center; 
+  height: 95%;
+}
+
+#spinner {
+  display: none;
+}
+
+/* Video Page */
+
+#searchBarContainer {
+  padding: 1.5rem;
+}
+
+#searchBarForm {
+  width: 80%;
+}
+
+#searchField {
+  width: 70%;
+}
+
+#searchResultContainer {
+  height: 80%;
+}
+
+#searchResultDiv, #videoDisplayDiv, #resultDisplayDiv {
+  height: 100%;
+}
+
+#video {
+  width: 80%;
+  margin-top: 5em;
+}
+
+#sortButtons {
+  margin: 1rem;
+}
+
+#sortByRelButton {
+  background-color: black;
+  color: white;
+}
+
+#sortByTimeButton {
+  background-color: white;
+  color: black;
+}
+
+#resultCardsByRel, #resultCardsByTime  {
+  overflow: scroll;
+  max-height: 95%;
+}
+
+[id$='card-textrow'] {
+  padding: 5px;
+  font-size: 12px;
+}
+
+[id^=goToFrameButton] {
+  height: 2em;
+  font-size: 1em;
+  padding-top: 1px;
+}
+
+/* Catalogue Page */
+
+[id^='framePreview'] {
+  overflow: scroll;
+  max-width: 90%;
+}
+
+/* [id^='sortBy']:hover,[id^='sortBy']:active, [id^='sortBy']:focus  {
+  background-color: black;
+  color: white;
+} */

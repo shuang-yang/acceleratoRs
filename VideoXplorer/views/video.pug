@@ -1,0 +1,152 @@
+extends layout
+
+block content
+	nav(class='navbar navbar-expand-lg navbar-light bg-light', id='navBar')
+		a(class='navbar-brand', href='#') VideoXplorer
+		button(class='navbar-toggler', type='button', data-toggle='collapse', data-target='#navbarSupportedContent', aria-controls='navbarSupportedContent', aria-expanded='false', aria-label='Toggle navigation')
+			span(class='navbar-toggler-icon')
+		div(clas='collapse navbar-collapse', id='navbarSupportedContent')
+			ul(class='navbar-nav mr-auto')
+				li(class='nav-item', id='navBarUploadButton')
+					a(class='nav-link', href='../catalogue') Catalogue
+				li(class='nav-item', id='navBarUploadButton')
+					a(class='nav-link', href='../upload') Upload
+				li(class='nav-item', id='navBarUploadButton')
+					a(class='nav-link uk-position-top-right uk-position-small', href='../') Sign Out
+	div(class='container-fluid', id='searchBarContainer')
+		div(class='row justify-content-center', id='searchBar')
+			form(class='form-inline justify-content-center', id='searchBarForm', method='get', action='')
+				input(class='form-control mr-sm-2', id='searchField', type='search', name='term', placeHolder='Search', aria-label='Search')
+				input(type='hidden', name='url', value=url)
+				input(type='hidden', name='searchName', value=searchName)
+				input(type='hidden', name='searchKey', value=searchKey)
+				button(class='btn btn-primary my-2 my-sm-0', id='searchButton', type='submit') Search
+	div(class='container-fluid', id='searchResultContainer')
+		div(class='row', id='searchResultDiv')
+			div(class='col-6 ', id='videoDisplayDiv')
+				div(class='row align-items-center justify-content-md-center', id='videoPlayer')
+					video(controls, muted, src=url, id='video') Video
+			if resultsByRel.length == 0 && searchTerm == undefined
+				div(class='uk-container')
+					p(class='uk-position-center-right uk-position-medium uk-light uk-text-lead uk-text-center', style='max-width: 50%') Explore the video by typing in your search. Have fun!
+			else if resultsByRel.length == 0 && searchTerm != undefined
+				div(class='uk-container')
+					p(class='uk-position-center-right uk-position-medium uk-light uk-text-lead uk-text-center') Seems no frame in the video matches the search. Try again!
+			else if resultsByRel.length != 0
+				div(class='col-6', id='resultDisplayDiv')
+					//- div(class='row justify-content-center')
+					//- 	div(class='btn-group', role='group', aria-label='SortButtons', id='sortButtons')
+					//- 		button(type='button', class='btn btn-dark', aria-pressed='true', id='sortByRelButton') Sort by Relevance
+					//- 		button(type='button', class='btn btn-light', aria-pressed='false', id='sortByTimeButton') Sort by Timeline
+					div(class='container-fluid', id='resultCardsByRel')
+						each result in resultsByRel
+							div(class='card shadow-sm p-3 mb-5 bg-white rounded', style='width: 100%;')
+								div(class='row no-gutters')
+									div(class='col-4', id='image')
+										img(class='img-fluid', src=result.url, alt='Card image left')
+									div(class='col-8')
+										div(class='card-block px-2 ')
+											div(class='row', id='videoname-card-textrow')
+												div(class='col-3') 
+													div(class='right-aligned-title') Video:
+												div(class='col-9')= result.filename
+											div(class='row', id='time-card-textrow')
+												div(class='col-3') 
+													div(class='right-aligned-title') Time:
+												div(class='col-9')
+													button(type='button', class='btn btn-primary', id='goToFrameButton'+result.index, time=result.time)= result.std_time
+											if result.captions != ''
+												div(class='row', id='caption-card-textrow')
+													div(class='col-3') 
+														div(class='right-aligned-title') Caption:
+													div(class='col-9')= result.captions
+											if result.tags != ''
+												div(class='row', id='tags-card-textrow')
+													div(class='col-3') 
+														div(class='right-aligned-title') Tags:
+													div(class='col-9')= result.tags
+											if result.celebrities != ''
+												div(class='row', id='tags-card-textrow')
+													div(class='col-3') 
+														div(class='right-aligned-title') Celebrities:
+													div(class='col-9')= result.celebrities
+											if result.landmarks != ''
+												div(class='row', id='tags-card-textrow')
+													div(class='col-3') 
+														div(class='right-aligned-title') Landmarks:
+													div(class='col-9')= result.landmarks
+					div(class='container-fluid', id='resultCardsByTime', style='display:none')
+						each result in resultsByTime
+							div(class='card shadow-sm p-3 mb-5 bg-white rounded', style='width: 100%;')
+								div(class='row no-gutters')
+									div(class='col-4', id='image')
+										img(class='img-fluid', src=result.url, alt='Card image left')
+									div(class='col-8')
+										div(class='card-block px-2')
+											div(class='row', id='videoname-card-textrow')
+												div(class='col-3') 
+													div(class='right-aligned-title') Video:
+												div(class='col-9')= result.filename
+											div(class='row', id='time-card-textrow')
+												div(class='col-3') 
+													div(class='right-aligned-title') Time:
+												div(class='col-9')
+													button(type='button', class='btn btn-primary', id='goToFrameButton'+result.index, time=result.time)= result.std_time
+											div(class='row', id='caption-card-textrow')
+												div(class='col-3') 
+													div(class='right-aligned-title') Caption:
+												div(class='col-9')= result.captions
+											div(class='row', id='tags-card-textrow')
+												div(class='col-3') 
+													div(class='right-aligned-title') Tags:
+												div(class='col-9')= result.tags
+	script.
+		$(function() {
+			
+			$('[id^=goToFrameButton]').on('click', function() {
+				var time = $(this).attr('time');
+				//- var time = parseInt(text);
+				var vid = document.getElementById("video");
+				vid.currentTime = time/1000;
+				vid.play();
+			});
+
+			$('#sortByRelButton').on('click', function() {
+				//- $('#sortByTimeButton').hide(1);
+				$('#sortByRelButton').css({
+					"background-color": 'black',
+					"color": 'white'
+				});
+				$('#sortByTimeButton').css({
+					"background-color": 'white',
+					"color": 'black'
+				});
+				//- console.log("path:" + location.href);
+				//- location.reload();
+				//- resultsByRel.sort(function(a, b) {
+				//- 	return a["@search.score"] > b["@search.score"]? 1 : -1;
+				//- });
+				$('#resultCardsByRel').load(document.URL + ' #resultCardsByRel');
+				//- $('#resultCardsByTime').hide();
+				//- $('#resultCardsByRel').show();
+			});
+
+			$('#sortByTimeButton').on('click', function() {
+				$('#sortByRelButton').css({
+					"background-color": 'white',
+					"color": 'black'
+				});
+				$('#sortByTimeButton').css({
+					"background-color": 'black',
+					"color": 'white'
+				});
+				//- location.reload();
+				//- resultsByRel.sort(function(a, b) {
+				//- 	return a.time > b.time? 1 : -1;
+				//- });
+				$('#resultCardsByRel').load(document.URL + ' #resultCardsByRel');
+				//- //- $('#resultCards').hide(1000);
+				//- $('#resultCardsByRel').hide();
+				//- $('#resultCardsByTime').show();
+			});
+		});
